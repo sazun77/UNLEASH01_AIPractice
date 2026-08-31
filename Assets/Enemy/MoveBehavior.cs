@@ -2,17 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveBehavior : MonoBehaviour
+
+
+public class Monster : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float speed = 7f;
+
+    private Vector3 direction;
+    private Rigidbody2D rb;
+    public void MoveTo(Vector3 targetPosition)
     {
-        
+        direction = (targetPosition - transform.position).normalized;
     }
 
-    // Update is called once per frame
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     void Update()
     {
-        
+        rb.MovePosition(rb.position + (Vector2)direction * speed * Time.fixedDeltaTime);
+
+        //Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //mousePosition.z = 0;
+        //MoveTo(mousePosition);
     }
 }
